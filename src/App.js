@@ -1,7 +1,10 @@
 import React from 'react';
+import Items from './Components/Items/Items'
 
 const App = () => {
-  return <div>Hello</div>;
+  return(
+      <Items />
+  )
 };
 
 export default App;
