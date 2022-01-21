@@ -1,37 +1,19 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import Item from './Item'
+import { Grid } from '@material-ui/core';
 
 
-const Items = () => {
-  return(
-    <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-        <CardMedia
-            component="img"
-            height="140"
-            image="https://cdn.pixabay.com/photo/2013/07/12/18/20/shoes-153310_960_720.png"
-        />
-        <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-                Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-            </Typography>
-        </CardContent>
-        </CardActionArea>
-        <CardActions>
-        <Button size="small" color="primary">
-            Share
-        </Button>
-        </CardActions>
-        </Card>
-    );  
+const Items = ({ items }) => {
+    console.log(items)
+    return (
+        <Grid container justifyContent='center' spacing={4}>
+            {items.map((item) => (
+                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+                    <Item item={item} />
+                </Grid>
+            ))}
+        </Grid>
+    );
 };
 
 export default Items;
