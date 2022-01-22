@@ -11,14 +11,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import styled from 'styled-components'
 
-const Navbar = () => {
-
-  const AppBar = styled.div`
+const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
+
+
+const Navbar = ({ cart }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" color="primary">
+      <AppBar1 position="fixed" color="primary">
         <Toolbar>
           <IconButton
             size="large"
@@ -33,12 +34,12 @@ const Navbar = () => {
             Shop
           </Typography>
           <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={cart.total_items} color="secondary">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
         </Toolbar>
-      </AppBar>
+      </AppBar1>
     </Box>
   )
 };
