@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 
 
 const Items = ({ items }) => {
-    console.log(items)
     return (
         <Grid container justifyContent='center' spacing={4}>
             {items.map((item) => (
