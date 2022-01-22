@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState} from 'react';
 import Items from './Components/Items/Items'
+import Navbar from './Components/Navbar/Navbar'
 import Commerce from '@chec/commerce.js';
 
 // notes: remember to add REACT_APP to access .env content
@@ -21,7 +22,11 @@ const App = () => {
     }, [])
 
     return(
-        <Items items={items}/>
+        <div>
+            <Navbar />
+            <Items items={items}/>
+        </div>
+     
     )
 };
 
