@@ -7,7 +7,10 @@ import Cart from './Components/Cart/Cart'
 import { Route, Routes, Link, BrowserRouter, BrowserRouter as Router } from 'react-router-dom'
 
 
-// notes: remember to add REACT_APP to access .env content
+/*  Notes
+    remember to add REACT_APP to access .env content
+    use element={} instead of component in routes 
+*/
 
 const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
 
