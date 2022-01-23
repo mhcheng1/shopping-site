@@ -28,6 +28,8 @@ const App = () => {
         setCart(response.cart)
     }
 
+    
+
     useEffect(() => {
         getItems()
         getCart()
