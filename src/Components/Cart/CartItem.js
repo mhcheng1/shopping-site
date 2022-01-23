@@ -17,7 +17,7 @@ const Description = styled.div`
     justify-content: space-between;
 `
 
-const Item = ({ item, addToCart }) =>{
+const CartItem = ({ item }) =>{
     const [count, setCount] = useState(1)
 
     const addCount = () => {
@@ -51,10 +51,10 @@ const Item = ({ item, addToCart }) =>{
             <CardActions1>
                 <Button color="secondary" fontSize="small" onClick={() => minusCount()} > - </Button>
                 <Typography variant="h6">
-                    {count}
+                    {item.quantity}
                 </Typography>
                 <Button color="secondary" fontSize="small" onClick={() => addCount()}> + </Button>
-                <IconButton color="primary" aria-label="add to shopping cart" onClick={() => addToCart(item.id, count)}>
+                <IconButton color="primary" aria-label="add to shopping cart">
                     <AddShoppingCartIcon />
                 </IconButton>
             </CardActions1>
@@ -62,4 +62,4 @@ const Item = ({ item, addToCart }) =>{
     );
 };
 
-export default Item;
+export default CartItem;

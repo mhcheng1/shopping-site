@@ -3,6 +3,9 @@ import { useEffect, useState} from 'react';
 import Items from './Components/Items/Items'
 import Navbar from './Components/Navbar/Navbar'
 import Commerce from '@chec/commerce.js';
+import Cart from './Components/Cart/Cart'
+import { Route, Routes, Link, BrowserRouter, BrowserRouter as Router } from 'react-router-dom'
+
 
 // notes: remember to add REACT_APP to access .env content
 
@@ -11,7 +14,7 @@ const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
 const App = () => {
 
     const [items, setItems] = useState([])
-    const [cart, setCart] = useState({})
+    const [cart, setCart] = useState({ line_items: [] })
 
     const getItems = async () => {
         const response = await commerce.products.list()
@@ -28,23 +31,25 @@ const App = () => {
         setCart(response.cart)
     }
 
-    
 
+ 
     useEffect(() => {
         getItems()
         getCart()
     }, [])
     
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
+    // useEffect(() => {
+    //     console.log(cart)
+    // }, [cart])
 
     return(
-        <div>
+        <Router> 
             <Navbar cart={cart} />
-            <Items items={items} addToCart={addToCart} />
-        </div>
-     
+            <Routes> 
+                <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
+                <Route exact path='/cart' element={<Cart cart={cart} />} />
+            </Routes>
+        </Router>
     )
 };
 
