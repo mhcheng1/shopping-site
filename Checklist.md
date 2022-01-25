@@ -10,3 +10,6 @@ Home page
         * Shopping Cart
         * Checkout
         * User
+
+* Payment using Stripe
+* Hook up database for user login and purchase record 
