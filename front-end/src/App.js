@@ -5,7 +5,7 @@ import Navbar from './Components/Navbar/Navbar'
 import Commerce from '@chec/commerce.js';
 import Cart from './Components/Cart/Cart'
 import { Route, Routes, Link, BrowserRouter, BrowserRouter as Router } from 'react-router-dom'
-
+import Checkout from './Components/Checkout/Checkout'
 
 /*  Notes
     remember to add REACT_APP to access .env content
@@ -34,6 +34,11 @@ const App = () => {
         setCart(response.cart)
     }
 
+    const updateCart = async(id, quantity) => {
+        const response = await commerce.cart.update(id, quantity)
+        setCart(response.cart)
+    }
+
 
  
     useEffect(() => {
@@ -50,7 +55,7 @@ const App = () => {
             <Navbar cart={cart} />
             <Routes> 
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
-                <Route exact path='/cart' element={<Cart cart={cart} />} />
+                <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />
             </Routes>
         </Router>
     )

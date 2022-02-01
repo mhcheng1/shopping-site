@@ -17,11 +17,13 @@ const Description = styled.div`
     justify-content: space-between;
 `
 
-const CartItem = ({ item }) =>{
-    const [count, setCount] = useState(1)
+const CartItem = ({ item, updateCart }) =>{
+    const [count, setCount] = useState(item.quantity)
 
-    const addCount = () => {
+    const addCount = async () => {
         setCount(count + 1)
+        console.log(count)
+        await updateCart(item.id, count)
     }
 
     const minusCount = () => {
@@ -53,7 +55,7 @@ const CartItem = ({ item }) =>{
                 <Typography variant="h6">
                     {item.quantity}
                 </Typography>
-                <Button color="secondary" fontSize="small" onClick={() => addCount()}> + </Button>
+                <Button color="secondary" fontSize="small" onClick={() => updateCart(item.id, item.quantity + 1)}> + </Button>
                 <IconButton color="primary" aria-label="add to shopping cart">
                     <AddShoppingCartIcon />
                 </IconButton>
