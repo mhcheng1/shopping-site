@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import styled from 'styled-components'
 import { useEffect, useState} from 'react';
 
@@ -18,18 +19,16 @@ const Description = styled.div`
 `
 
 const CartItem = ({ item, updateCart }) =>{
-    const [count, setCount] = useState(item.quantity)
-
-    const addCount = async () => {
-        setCount(count + 1)
-        console.log(count)
-        await updateCart(item.id, count)
+    const addCount = () => {
+        updateCart(item.id, {quantity: item.quantity + 1})
     }
-
     const minusCount = () => {
-        if (count > 1) {
-            setCount(count - 1)
+        if (item.quantity >= 1) {
+            updateCart(item.id, {quantity: item.quantity - 1})
         }
+    }
+    const deleteItem = () => {
+        updateCart(item.id, {quantity: 0})
     }
 
     return (
@@ -55,9 +54,9 @@ const CartItem = ({ item, updateCart }) =>{
                 <Typography variant="h6">
                     {item.quantity}
                 </Typography>
-                <Button color="secondary" fontSize="small" onClick={() => updateCart(item.id, item.quantity + 1)}> + </Button>
-                <IconButton color="primary" aria-label="add to shopping cart">
-                    <AddShoppingCartIcon />
+                <Button color="secondary" fontSize="small" onClick={() => addCount()}> + </Button>
+                <IconButton color="primary" aria-label="add to shopping cart" onClick={() => deleteItem()}>
+                    <DeleteIcon />
                 </IconButton>
             </CardActions1>
         </Card>
