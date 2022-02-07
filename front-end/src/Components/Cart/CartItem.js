@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import styled from 'styled-components'
 import { useEffect, useState} from 'react';
 
@@ -17,17 +18,17 @@ const Description = styled.div`
     justify-content: space-between;
 `
 
-const CartItem = ({ item }) =>{
-    const [count, setCount] = useState(1)
-
+const CartItem = ({ item, updateCart }) =>{
     const addCount = () => {
-        setCount(count + 1)
+        updateCart(item.id, {quantity: item.quantity + 1})
     }
-
     const minusCount = () => {
-        if (count > 1) {
-            setCount(count - 1)
+        if (item.quantity >= 1) {
+            updateCart(item.id, {quantity: item.quantity - 1})
         }
+    }
+    const deleteItem = () => {
+        updateCart(item.id, {quantity: 0})
     }
 
     return (
@@ -54,8 +55,8 @@ const CartItem = ({ item }) =>{
                     {item.quantity}
                 </Typography>
                 <Button color="secondary" fontSize="small" onClick={() => addCount()}> + </Button>
-                <IconButton color="primary" aria-label="add to shopping cart">
-                    <AddShoppingCartIcon />
+                <IconButton color="primary" aria-label="add to shopping cart" onClick={() => deleteItem()}>
+                    <DeleteIcon />
                 </IconButton>
             </CardActions1>
         </Card>

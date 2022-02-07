@@ -29,7 +29,6 @@ const Item = ({ item, addToCart }) =>{
             setCount(count - 1)
         }
     }
-
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
