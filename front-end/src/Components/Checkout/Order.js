@@ -1,25 +1,21 @@
+import { Typography } from '@mui/material';
 import React from 'react';
 import { useEffect, useState} from 'react';
 
 const Order = ({ cart, emptyCart }) => {
-    const [storedCart, setStoredCart] = useState(false)
-    useEffect(()=>{
-        if (cart.total_items !== 0) {
-            setStoredCart(cart)
-        }
-    }, [cart])
+    // const [storedCart, setStoredCart] = useState(false)
+    // useEffect(()=>{
+    //     if (cart.total_items !== 0) {
+    //         setStoredCart(cart)
+    //     }
+    // }, [cart])
 
     useEffect(()=>{
-        if (storedCart) {
-            //emptyCart()
-        }
-        else {
-            console.log("cart is empty")
-        }
-    }, [storedCart])
+        emptyCart()
+    }, [])
 
     return(
-        <div>{storedCart? storedCart.id: "No Cart"}</div>
+        <Typography variant='h6' style={{ display:'flex', justifyContent: 'center' }}>Thank you for your purchase. Press the home button to keep shopping</Typography>
     )
 };
 

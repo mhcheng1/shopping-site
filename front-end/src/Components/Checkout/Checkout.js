@@ -37,6 +37,7 @@ const TotalDiv = styled.div`
     display: flex;
     justify-content: center;
 `
+const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 
 const fromDollarToCent = amount => parseInt(amount * 100);
 // post order detail to backend and redirect if success
@@ -50,9 +51,8 @@ const onToken = (amount, description) => token =>
     })
     .then( function(response) {
       console.log(response)
-    }
-      //window.location.href = "http://localhost:3000/order_complete"
-    )
+      window.location.href = FRONTEND_URL + "/order_complete"
+    })
 
 const Checkout = ({ name, description, amount }) => {
 
