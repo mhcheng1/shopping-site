@@ -2,6 +2,7 @@ import React from 'react';
 import Item from './Item'
 import { Grid, Container } from '@material-ui/core';
 import shop from '../assets/shop.jpg'
+import bottom from '../assets/concrete.jpg'
 import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -85,6 +86,13 @@ const Items = ({ items, addToCart }) => {
                     </TabPanel>
                 </TabContext>
             </Box>
+            <Card sx={{ mb: 2 }}>
+                <CardMedia
+                    component="img"
+                    image={bottom}
+                    height="100"
+                />
+            </Card>
         </div>
     );
 };
