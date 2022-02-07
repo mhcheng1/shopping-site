@@ -18,7 +18,6 @@ const Items = ({ items, addToCart }) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    console.log(items)
     return (
         <div>
             <Card sx={{ mb: 2 }}>
