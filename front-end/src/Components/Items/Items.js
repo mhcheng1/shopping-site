@@ -86,7 +86,7 @@ const Items = ({ items, addToCart }) => {
                     </TabPanel>
                 </TabContext>
             </Box>
-            <Card sx={{ mb: 2 }}>
+            <Card sx={{ mb: -2, mr: -2, ml: -2 }}>
                 <CardMedia
                     component="img"
                     image={bottom}
