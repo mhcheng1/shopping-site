@@ -8,7 +8,7 @@ app.use(express.urlencoded({extended: true}));
 
 const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
-const SERVER_CONFIGS = 8080
+const SERVER_CONFIGS = process.env.PORT || 8080
 
 const whitelist = [ FRONTEND_URL ]
 const corsOptions = {
@@ -41,6 +41,9 @@ app.post('/checkout', async (req, res) => {
   // paymentIntent()
 });
 
+app.get('/', (req,res) => {
+  res.send("Get home page")
+})
 
 app.listen(SERVER_CONFIGS, error => {
   if (error) throw error;
