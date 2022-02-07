@@ -1,9 +1,9 @@
 import React from 'react';
 import Item from './Item'
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import shop from '../assets/shop.jpg'
 import bottom from '../assets/concrete.jpg'
-import { Typography, CardMedia, Card } from '@mui/material';
+import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -40,44 +40,46 @@ const Items = ({ items, addToCart }) => {
                     <TabPanel value="All">
                         <Grid container justifyContent='center' spacing={4}>
                             {items.map((item) => (
-                                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-                                    item.categories[0]
-                                    ?<Item item={item} addToCart={addToCart} />: <></>
+                                item.categories[0] 
+                                ? <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+                                    <Item item={item} addToCart={addToCart} />
                                 </Grid>
-
+                                : <></>
                             ))}
                         </Grid>
                     </TabPanel>
                     <TabPanel value="Clothing">
                         <Grid container justifyContent='center' spacing={4}>
                             {items.map((item) => (
-                                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>item.categories[0].name === 'Clothing'
-                                    ?
-                                    <Item item={item} addToCart={addToCart} />: <></>
+                                item.categories[0].name === 'Clothing' 
+                                ? <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+                                    <Item item={item} addToCart={addToCart} />
                                 </Grid>
-
+                                : <></>
                             ))}
                         </Grid>
                     </TabPanel>
                     <TabPanel value="Music">
                         <Grid container justifyContent='center' spacing={4}>
                             {items.map((item) => (
-                                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-                                    item.categories[0].name === 'Music'
-                                    ? <Item item={item} addToCart={addToCart} />:  <></>
-                                </Grid>
+                                item.categories[0].name === 'Music' 
+                                ? <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+                                        <Item item={item} addToCart={addToCart} />
+                                    </Grid>
+                                :  <></>
+                            
                             ))}
                         </Grid>
                     </TabPanel>
                     <TabPanel value="Accessories">
                         <Grid container justifyContent='center' spacing={4}>
                             {items.map((item) => (
-                                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-                                    item.categories[0].name === 'Accessories'
-                                    ?<Item item={item} addToCart={addToCart} />: <></>
-                                </Grid>
-
-
+                                item.categories[0].name === 'Accessories' 
+                                ? <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+                                        <Item item={item} addToCart={addToCart} />
+                                    </Grid>
+                                :  <></>
+                            
                             ))}
                         </Grid>
                     </TabPanel>

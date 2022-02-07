@@ -83,7 +83,7 @@ const Navbar = ({ cart }) => {
             onLogoutSuccess={logout}
           /></>
           }
-          <IconButton aria-label="cart" sx={{ ml: '10px' }}>
+          <IconButton aria-label="cart" sx={{ ml: '10px', mt: '6px' }}>
             <Badge badgeContent={cart.total_items} color="secondary">
               <Link to="/cart"><ShoppingCartIcon /></Link>
             </Badge>
