@@ -23,6 +23,7 @@ app.use(cors(corsOptions))
 
 const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET);
 
+
 const postStripeCharge = res => (stripeErr, stripeRes) => {
   if (stripeErr) {
     res.status(500).send({ error: stripeErr });
@@ -31,9 +32,11 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
   }
 }
 
-app.post('/checkout', (req, res) => {
-  stripe.charges.create(req.body, postStripeCharge(res));
+app.post('/checkout', async (req, res) => {
+  await stripe.charges.create(req.body, postStripeCharge(res))
+  
   console.log(req.body);
+  // paymentIntent()
 });
 
 
