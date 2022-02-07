@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
-const FRONTEND_URL = "http://localhost:3000"
+const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 const SERVER_CONFIGS = 8080
 
 const whitelist = [ FRONTEND_URL ]

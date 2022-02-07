@@ -38,11 +38,12 @@ const TotalDiv = styled.div`
     justify-content: center;
 `
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const fromDollarToCent = amount => parseInt(amount * 100);
 // post order detail to backend and redirect if success
 const onToken = (amount, description) => token =>
-  axios.post('http://localhost:8080/checkout',
+  axios.post(SERVER_URL + '/checkout',
     {
       description,
       source: token.id,
@@ -55,8 +56,6 @@ const onToken = (amount, description) => token =>
     })
 
 const Checkout = ({ name, description, amount }) => {
-
-
 
   return (
     <StripeCheckout
@@ -72,7 +71,7 @@ const Checkout = ({ name, description, amount }) => {
       shippingAddress
       >
       <Total>{amount? "Total: $" + (Math.round(amount * 100) / 100).toFixed(2): ""}</Total>
-      <TotalDiv>{amount? <Button className="btn">Checkout</Button>: <Typography variant='h2'>The cart is empty</Typography> }</TotalDiv>
+      <TotalDiv>{amount? <Button className="btn">Checkout</Button>: <Typography variant='h6'>The cart is empty</Typography> }</TotalDiv>
     </StripeCheckout>
   )
 }

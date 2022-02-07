@@ -21,9 +21,6 @@ const Title = styled.div`
 
 `
 const Cart = ({ cart, updateCart }) => {
-
-    console.log(cart)
-    
     return(
         <div>
             <Title>
