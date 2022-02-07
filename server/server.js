@@ -1,4 +1,3 @@
-const SERVER_CONFIGS = '8080'
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -7,8 +6,11 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
+const FRONTEND_URL = "http://localhost:3000"
+const SERVER_CONFIGS = 8080
 
-const whitelist = ["http://localhost:3000"]
+const whitelist = [ FRONTEND_URL ]
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -21,7 +23,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET);
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 
 const postStripeCharge = res => (stripeErr, stripeRes) => {
@@ -40,7 +42,7 @@ app.post('/checkout', async (req, res) => {
 });
 
 
-app.listen(8080, error => {
+app.listen(SERVER_CONFIGS, error => {
   if (error) throw error;
   console.log('Server running on port: ' + SERVER_CONFIGS);
 });
