@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
+import { Typography, CardContent, CardMedia, Card, IconButton, Button } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styled from 'styled-components'
-import { useEffect, useState} from 'react';
+import {useState} from 'react';
 
 
 // note: use dangerouslySetInnerHTML to parse out HTML tags in string

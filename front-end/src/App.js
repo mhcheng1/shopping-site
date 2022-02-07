@@ -4,8 +4,7 @@ import Items from './Components/Items/Items'
 import Navbar from './Components/Navbar/Navbar'
 import Commerce from '@chec/commerce.js';
 import Cart from './Components/Cart/Cart'
-import { Route, Routes, Link, BrowserRouter, BrowserRouter as Router } from 'react-router-dom'
-import Checkout from './Components/Checkout/Checkout'
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Order from './Components/Checkout/Order'
 
 /*  Notes

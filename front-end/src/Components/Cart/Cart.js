@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
-import { useEffect, useState} from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import CartItem from './CartItem';
 import styled from 'styled-components'
 import Checkout from '../Checkout/Checkout';

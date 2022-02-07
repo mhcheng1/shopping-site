@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { useEffect, useState} from 'react';
+import { useEffect } from 'react';
+
 
 const Order = ({ cart, emptyCart }) => {
     // const [storedCart, setStoredCart] = useState(false)

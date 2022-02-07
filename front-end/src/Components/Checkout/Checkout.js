@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
-import PaymentIcon from '@material-ui/icons/Payment';
 import styled from "styled-components";
 import { Typography } from '@material-ui/core';
 
