@@ -6,6 +6,8 @@ import { Typography } from '@material-ui/core';
 
 
 const Button = styled.button`
+  display:flex;
+  justify-content: center;
   background-color: blue;
   color: white;
   padding: 5px 15px;
@@ -57,6 +59,8 @@ const onToken = (amount, description) => token =>
 const Checkout = ({ name, description, amount }) => {
 
   return (
+    <div>
+    <Total>{amount? "Total: $" + (Math.round(amount * 100) / 100).toFixed(2): ""}</Total>
     <StripeCheckout
       name={'Checkout'}
       description={'Total: $' + amount}
@@ -69,9 +73,15 @@ const Checkout = ({ name, description, amount }) => {
       billingAddress
       shippingAddress
       >
-      <Total>{amount? "Total: $" + (Math.round(amount * 100) / 100).toFixed(2): ""}</Total>
-      <TotalDiv>{amount? <Button className="btn">Checkout</Button>: <Typography variant='h6'>The cart is empty</Typography> }</TotalDiv>
+      <TotalDiv>
+        {amount
+          ? <Button className="btn">Checkout</Button>
+          : <Typography variant='h6'>The cart is empty</Typography> }
+      </TotalDiv>
     </StripeCheckout>
+    <Typography variant='body1'>{amount? "For testing use this sample card: 4242 4242 4242 4242, EXP: 04/24, CVC: 424": <></>}</Typography>
+
+    </div>
   )
 }
 
