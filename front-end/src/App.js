@@ -23,7 +23,7 @@ const App = () => {
 
     const getItems = async () => {
         const response = await commerce.products.list()
-        setItems(response.data)
+        setItems(response.data.reverse())
     }
     const getCart = async() => {
         const response = await commerce.cart.retrieve()
