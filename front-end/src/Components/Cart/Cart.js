@@ -17,7 +17,6 @@ const Title = styled.div`
     font-size: 30px;
     margin-top: 30px;
     margin-bottom: 30px;
-
 `
 const Cart = ({ cart, updateCart }) => {
     return(

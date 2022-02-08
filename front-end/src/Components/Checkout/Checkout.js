@@ -51,9 +51,12 @@ const onToken = (amount, description) => token =>
       currency: 'USD',
       amount: fromDollarToCent(amount)
     })
-    .then( function(response) {
-      console.log(response)
+    .then(async (response) => {
+      await console.log(response)
       window.location.href = FRONTEND_URL + "/order_complete"
+    })
+    .catch((error) => {
+      alert('Payment Error:' + error)
     })
 
 const Checkout = ({ name, description, amount }) => {
