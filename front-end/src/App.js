@@ -6,6 +6,8 @@ import Commerce from '@chec/commerce.js';
 import Cart from './Components/Cart/Cart'
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Order from './Components/Checkout/Order'
+import { useSelector, useDispatch } from 'react-redux'
+import { increment } from './Actions'
 
 /*  Notes
     remember to add REACT_APP to access .env content
@@ -20,6 +22,14 @@ const App = () => {
     const [cart, setCart] = useState({ line_items: [] })
     const [lastCart, setLastCart] = useState({ line_items: [] })
 
+    // redux
+    const counter = useSelector(state => state.counter)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        getItems()
+        getCart()
+    }, [])
 
     const getItems = async () => {
         const response = await commerce.products.list()
@@ -43,19 +53,12 @@ const App = () => {
         console.log("cart emptied")
     }
 
- 
-    useEffect(() => {
-        getItems()
-        getCart()
-    }, [])
-    
-    // useEffect(() => {
-    //     console.log(cart)
-    // }, [cart])
 
     return(
         <Router> 
             <Navbar cart={cart} />
+            <h1>{counter}</h1>
+            <button onClick={() => dispatch(increment(2))}>+</button>
             <Routes> 
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
                 <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />
