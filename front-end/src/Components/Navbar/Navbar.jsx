@@ -13,6 +13,10 @@ import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux'
+import { userId } from '../../Actions/userId';
+
+
 
 const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
@@ -20,6 +24,8 @@ const AppBar1 = styled.div`
 const Navbar = ({ cart }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState()
+  const dispatch = useDispatch()
+
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
@@ -31,7 +37,10 @@ const Navbar = ({ cart }) => {
       console.log(response);
       setLoggedIn(true)
       setUser(response)
-      
+
+      // store current user email in redux state
+      dispatch(userId(response.profileObj.email))
+
       axios.post(SERVER_URL + '/api/insertUser',
       {
         email: response.profileObj.email,

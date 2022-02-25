@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { Typography } from '@material-ui/core';
 import { Navigate } from "react-router-dom"
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const Button = styled.button`
   display:flex;
@@ -46,8 +48,10 @@ const fromDollarToCent = amount => parseInt(amount * 100);
 
 const Checkout = ({ name, description, amount }) => {
   const [checked, setChecked] = useState(0)
+  var tempDate, date;
+  const user_email = useSelector(state => state.user)
 
-  // post order detail to backend and redirect if success
+  // post order detail to backend and redirect to order_complete page if success
   const onToken = (amount, description) => token =>
     axios.post(SERVER_URL + '/checkout',
       {
@@ -57,10 +61,22 @@ const Checkout = ({ name, description, amount }) => {
         amount: fromDollarToCent(amount)
       })
       .then(function (response) {
-        const tempDate = new Date();
-        const date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        tempDate = new Date();
+        date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
         console.log(response)
         setChecked(1)
+        const res = response.data.success
+
+        axios.post(SERVER_URL + '/api/insertOrder',
+          {
+            email: user_email,
+            reciept_url: res.receipt_url,
+            total: res.amount,
+            date: date
+          })
+          .catch(function (error) {
+            console.log("error in post insertOrder", error)
+          })
       })
 
 

@@ -57,8 +57,6 @@ const App = () => {
     return(
         <Router> 
             <Navbar cart={cart} />
-            <h1>{counter}</h1>
-            <button onClick={() => dispatch(increment(2))}>+</button>
             <Routes> 
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
                 <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />

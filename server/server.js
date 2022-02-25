@@ -57,10 +57,21 @@ app.post("/api/insertUser", (req, res) => {
   const first_name = req.body.first_name
   const last_name = req.body.last_name
   const name = req.body.name
-  
   const sqlInsert = "INSERT INTO users(email, first_name, last_name) values(?,?,?);"
   db.query(sqlInsert, [email, first_name, last_name], (err, result) => {
-    console.log(err)
+    if (err){ console.log(err) } 
+  })
+})
+
+// insert order
+app.post("/api/insertOrder", (req, res) => {
+  const email = req.body.email
+  const reciept_url = req.body.reciept_url
+  const total = req.body.total
+  const date = req.body.date
+  const sqlInsert = "INSERT INTO order_by(email, reciept_url, total, date) values(?,?,?,?);"
+  db.query(sqlInsert, [email, reciept_url, total, date], (err, result) => {
+    if (err){ console.log(err) } 
   })
 })
 

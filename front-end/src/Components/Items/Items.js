@@ -12,7 +12,6 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useState } from 'react';
 
 const Items = ({ items, addToCart }) => {
-    console.log(items)
     const [value, setValue] = useState('Clothing');
 
     const handleChange = (event, newValue) => {
