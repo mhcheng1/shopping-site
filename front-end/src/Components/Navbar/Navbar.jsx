@@ -15,7 +15,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { userId } from '../../Actions/userId';
-
+import { signOut } from '../../Actions/signOut';
 
 
 const AppBar1 = styled.div`
@@ -60,6 +60,7 @@ const Navbar = ({ cart }) => {
   const logout = () => {
     console.log("User has logged out");
     setLoggedIn(false)
+    dispatch(signOut())
   }
 
   return (
