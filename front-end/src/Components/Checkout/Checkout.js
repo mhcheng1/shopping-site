@@ -46,13 +46,14 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const fromDollarToCent = amount => parseInt(amount * 100);
 
-const Checkout = ({ name, description, amount }) => {
+const Checkout = ({ name, description, amount, cart }) => {
   const [checked, setChecked] = useState(0)
   var tempDate, date;
   const user_email = useSelector(state => state.user)
 
   // post order detail to backend and redirect to order_complete page if success
   const onToken = (amount, description) => token =>
+    // post to stripe to verify order
     axios.post(SERVER_URL + '/checkout',
       {
         description,
@@ -61,17 +62,31 @@ const Checkout = ({ name, description, amount }) => {
         amount: fromDollarToCent(amount)
       })
       .then(function (response) {
+        // get time when order complete
         tempDate = new Date();
         date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
         console.log(response)
-        setChecked(1)
+
         const res = response.data.success
 
+        const checkoutCart = cart.line_items.map(prod => {
+          return [res.receipt_url, prod.product_id, prod.quantity]
+        })
+
+        axios.post(SERVER_URL + '/api/insertOrderItem', checkoutCart)
+          .catch(function (error) {
+            console.log("error in post insertOrder", error)
+          })
+          
+        // redirect
+        setChecked(1)
+
+        // post success order detail to database
         axios.post(SERVER_URL + '/api/insertOrder',
           {
             email: user_email,
             reciept_url: res.receipt_url,
-            total: res.amount,
+            total: +(res.amount) / 100,
             date: date
           })
           .catch(function (error) {

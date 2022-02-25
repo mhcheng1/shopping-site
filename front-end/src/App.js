@@ -8,6 +8,7 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Order from './Components/Checkout/Order'
 import { useSelector, useDispatch } from 'react-redux'
 import { increment } from './Actions'
+import axios from 'axios'
 
 /*  Notes
     remember to add REACT_APP to access .env content
@@ -15,16 +16,11 @@ import { increment } from './Actions'
 */
 
 const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const App = () => {
-
     const [items, setItems] = useState([])
     const [cart, setCart] = useState({ line_items: [] })
-    const [lastCart, setLastCart] = useState({ line_items: [] })
-
-    // redux
-    const counter = useSelector(state => state.counter)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         getItems()
@@ -53,6 +49,19 @@ const App = () => {
         console.log("cart emptied")
     }
 
+    // update items in the database
+    useEffect(() => {
+        if (items.length > 0) {
+            const newItems = items.map(i => {
+                return [i.id, i.name, i.price.raw]
+            })
+            axios.post(SERVER_URL + '/api/insertItem', {
+                items: newItems
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+    }, [items])
 
     return(
         <Router> 

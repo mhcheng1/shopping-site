@@ -18,7 +18,9 @@ const Description = styled.div`
     justify-content: space-between;
 `
 
+// display current item in the cart
 const CartItem = ({ item, updateCart }) =>{
+    // perform update of items
     const addCount = () => {
         updateCart(item.id, {quantity: item.quantity + 1})
     }

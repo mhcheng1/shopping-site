@@ -36,6 +36,7 @@ const Cart = ({ cart, updateCart }) => {
                     name={'SHOP'}
                     description={'Checkout'}
                     amount={cart.subtotal?.raw}
+                    cart={cart}
                 />
             </TitleDiv>
         </div>
