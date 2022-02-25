@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import { Navigate } from "react-router-dom"
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { receiptUrl } from '../../Actions/receiptUrl';
 
 const Button = styled.button`
   display:flex;
@@ -49,6 +49,9 @@ const fromDollarToCent = amount => parseInt(amount * 100);
 const Checkout = ({ name, description, amount, cart }) => {
   const [checked, setChecked] = useState(0)
   var tempDate, date;
+
+  // redux
+  const dispatch = useDispatch()
   const user_email = useSelector(state => state.user)
 
   // post order detail to backend and redirect to order_complete page if success
@@ -68,6 +71,7 @@ const Checkout = ({ name, description, amount, cart }) => {
         console.log(response)
 
         const res = response.data.success
+        dispatch(receiptUrl(res.receipt_url))
 
         const checkoutCart = cart.line_items.map(prod => {
           return [res.receipt_url, prod.product_id, prod.quantity]
@@ -77,7 +81,7 @@ const Checkout = ({ name, description, amount, cart }) => {
           .catch(function (error) {
             console.log("error in post insertOrder", error)
           })
-          
+
         // redirect
         setChecked(1)
 
