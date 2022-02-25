@@ -12,6 +12,7 @@ import {GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import axios from 'axios';
 
 const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
@@ -20,6 +21,7 @@ const Navbar = ({ cart }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState()
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const responseGoogle = (response) => {
     if (response.error) {
@@ -29,6 +31,20 @@ const Navbar = ({ cart }) => {
       console.log(response);
       setLoggedIn(true)
       setUser(response)
+      
+      axios.post(SERVER_URL + '/api/insertUser',
+      {
+        email: response.profileObj.email,
+        first_name: response.profileObj.givenName,
+        last_name: response.profileObj.familyName,
+        name: response.profileObj.name
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error){
+        console.log("login post error: ", error)
+      })
     }
   }
 

@@ -34,7 +34,7 @@ const Item = ({ item, addToCart }) =>{
             <CardMedia
                 component="img"
                 image={item.image.url}
-                height="200"
+                height="300"
             />
             <CardContent>
                 <Description>

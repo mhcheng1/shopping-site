@@ -12,7 +12,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useState } from 'react';
 
 const Items = ({ items, addToCart }) => {
-
+    console.log(items)
     const [value, setValue] = useState('Clothing');
 
     const handleChange = (event, newValue) => {
@@ -85,7 +85,7 @@ const Items = ({ items, addToCart }) => {
                     </TabPanel>
                 </TabContext>
             </Box>
-            <Card sx={{ mb: -2, mr: -1, ml: -1 }}>
+            <Card sx={{ mb: -2, mr: -1, ml: -1, mt: 2 }}>
                 <CardMedia
                     component="img"
                     image={bottom}
