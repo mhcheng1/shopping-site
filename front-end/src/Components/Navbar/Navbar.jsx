@@ -96,7 +96,9 @@ const Navbar = ({ cart }) => {
             cookiePolicy={'single_host_origin'}
           />
             : 
-          <> <Typography variant='h6' sx={{ mr: 2}}>Welcome! {user?.profileObj.givenName}</Typography>
+            
+          <>
+          <Typography variant='h6' sx={{ mr: 2}}>Welcome! {user?.profileObj.givenName}</Typography>
           <GoogleLogout 
             clientId={GOOGLE_CLIENT_ID}
             render={renderProps => (
@@ -107,7 +109,11 @@ const Navbar = ({ cart }) => {
             )}
             buttonText="Logout"
             onLogoutSuccess={logout}
-          /></>
+          />
+          <IconButton aria-label="history" sx={{ ml: '10px', mt: '6px' }}>
+              <Link to="/history"><ShoppingCartIcon /></Link>
+          </IconButton>
+          </>
           }
           <IconButton aria-label="cart" sx={{ ml: '10px', mt: '6px' }}>
             <Badge badgeContent={cart.total_items} color="secondary">

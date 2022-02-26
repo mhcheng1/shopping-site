@@ -70,6 +70,7 @@ const App = () => {
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
                 <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />
                 <Route exact path='/order_complete' element={<Order cart={cart} emptyCart={emptyCart} />} />
+                <Route exact path='/history' element={<Order cart={cart} emptyCart={emptyCart} />} />
             </Routes>
         </Router>
     )
