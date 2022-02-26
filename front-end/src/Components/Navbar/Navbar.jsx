@@ -34,7 +34,7 @@ const Navbar = ({ cart }) => {
       console.log("login ERROR", response)
     }
     else {
-      console.log(response);
+      // console.log(response);
       setLoggedIn(true)
       setUser(response)
 
@@ -111,7 +111,7 @@ const Navbar = ({ cart }) => {
             onLogoutSuccess={logout}
           />
           <IconButton aria-label="history" sx={{ ml: '10px', mt: '6px' }}>
-              <Link to="/history"><ShoppingCartIcon /></Link>
+            <Link to="/history"><ShoppingCartIcon /></Link>
           </IconButton>
           </>
           }

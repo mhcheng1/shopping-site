@@ -38,7 +38,7 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
 
 app.post('/checkout', async (req, res) => {
   await stripe.charges.create(req.body, postStripeCharge(res))
-  console.log(req.body);
+  //console.log(req.body);
 });
 
 
@@ -85,12 +85,46 @@ app.post("/api/insertItem", async (req, res) => {
 })
 
 // insert products info
-app.post("/api/insertOrderItem", async (req, res) => {
+app.post("/api/insertOrderItem", (req, res) => {
   const order = req.body
   const sqlInsert = `INSERT IGNORE INTO Order_contain(order_url, prod_id, item_quantity) values ? `
   db.query(sqlInsert, [order], (err, result) => {
     if (err) { console.log(err) }
   })
+})
+
+// get order info
+app.get("/api/getOrder", (req, res) => {
+  const user_email = req.query.user_email
+  const sqlSelect = `select * from order_by WHERE email= ? `
+  db.query(sqlSelect, [user_email], (err, result) => {
+    if (err) { console.log(err) }
+    else {
+      res.send(result)
+    }
+  })
+})
+
+// get item contained in the order
+app.get("/api/getOrderItem", (req, res) => {
+  if (req.query.receipt) {
+    const receipt_url = req.query.receipt
+    const sqlSelect =
+    `SELECT name, price, item_quantity
+    FROM
+      Order_contain t1
+    INNER JOIN Item t2
+      ON t1.order_url= ? and t1.prod_id = t2.prod_id;`
+    
+    db.query(sqlSelect, [receipt_url] ,(err, result) => {
+      if (err) { console.log(err) }
+      else {
+        console.log(result)
+        res.send(result)
+      }
+    })
+  }
+
 })
 
 app.listen(SERVER_CONFIGS, error => {

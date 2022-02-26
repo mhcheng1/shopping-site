@@ -6,9 +6,10 @@ import Commerce from '@chec/commerce.js';
 import Cart from './Components/Cart/Cart'
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Order from './Components/Checkout/Order'
-import { useSelector, useDispatch } from 'react-redux'
 import { increment } from './Actions'
 import axios from 'axios'
+import History from './Components/History/History';
+import { useSelector } from 'react-redux';
 
 /*  Notes
     remember to add REACT_APP to access .env content
@@ -49,6 +50,8 @@ const App = () => {
         console.log("cart emptied")
     }
 
+    const user_email = useSelector(state => state.user)
+
     // update items in the database
     useEffect(() => {
         if (items.length > 0) {
@@ -70,7 +73,7 @@ const App = () => {
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
                 <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />
                 <Route exact path='/order_complete' element={<Order cart={cart} emptyCart={emptyCart} />} />
-                <Route exact path='/history' element={<Order cart={cart} emptyCart={emptyCart} />} />
+                <Route exact path='/history' element={<History user_email={user_email} />} />
             </Routes>
         </Router>
     )
