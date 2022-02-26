@@ -27,7 +27,7 @@ The database is hosted using ClearDB MySQL add-ons on Heroku.
 
 Diagram:
 
-![ER-Diagram](Documentation/ER_Diagram.png)
+![ER-Diagram](Documentation/ER-Diagram.png)
 
 
 ### Run the App Locally
