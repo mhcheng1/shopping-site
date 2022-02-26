@@ -12,7 +12,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useState, useEffect } from 'react';
 
 const Items = ({ items, addToCart }) => {
-    // default state as clothing
+    // default state as Clothing
     const [value, setValue] = useState('Clothing');
 
     // switch for different item display tabs

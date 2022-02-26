@@ -5,25 +5,26 @@ import { useSelector } from 'react-redux'
 
 
 const Order = ({ emptyCart }) => {
-    useEffect(()=>{
+    // On load empty cart
+    useEffect(() => {
         emptyCart()
     }, [])
 
+    // get receipt url from redux state
     const receipt = useSelector(state => state.receipt)
     const handleClick = () => {
         window.open(receipt);
-      };
+    };
 
-    return(
+    return (
         <div>
-            <Typography variant='h6' style={{ display:'flex', justifyContent: 'center', paddingTop: '100px'}}>
+            <Typography variant='h6' style={{ display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>
                 Thank you for your purchase. Here is your reciept
             </Typography>
-            <Typography variant='h6' style={{ display:'flex', justifyContent: 'center', paddingTop: '10px' }}>
+            <Typography variant='h6' style={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}>
                 <button onClick={handleClick}>Receipt</button>
             </Typography>
         </div>
     )
 };
-
 export default Order;

@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
 });
 
 
-// ***********************  Stripe ******************************* //
+// *********************  Stripe Payment ************************* //
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 const postStripeCharge = res => (stripeErr, stripeRes) => {

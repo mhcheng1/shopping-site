@@ -41,21 +41,22 @@ const TotalDiv = styled.div`
     display: flex;
     justify-content: center;
 `
-const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 const fromDollarToCent = amount => parseInt(amount * 100);
 
 const Checkout = ({ name, description, amount, cart }) => {
   const [checked, setChecked] = useState(0)
   var tempDate, date;
 
-  // redux
+  // get user email from redux state
   const dispatch = useDispatch()
   const user_email = useSelector(state => state.user)
 
   // post order detail to backend and redirect to order_complete page if success
   const onToken = (amount, description) => token =>
     // post to stripe to verify order
+    // If success perform multiple POST of order info to server
     axios.post(SERVER_URL + '/checkout',
       {
         description,
@@ -64,13 +65,13 @@ const Checkout = ({ name, description, amount, cart }) => {
         amount: fromDollarToCent(amount)
       })
       .then(function (response) {
+        // order complete
+        const res = response.data.success
+        dispatch(receiptUrl(res.receipt_url))
+
         // get time when order complete
         tempDate = new Date();
         date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
-        //console.log(response)
-
-        const res = response.data.success
-        dispatch(receiptUrl(res.receipt_url))
 
         const checkoutCart = cart.line_items.map(prod => {
           return [res.receipt_url, prod.product_id, prod.quantity]
@@ -81,8 +82,6 @@ const Checkout = ({ name, description, amount, cart }) => {
             console.log("error in post insertOrder", error)
           })
 
-        // redirect
-        setChecked(1)
 
         // post success order detail to database
         axios.post(SERVER_URL + '/api/insertOrder',
@@ -95,11 +94,16 @@ const Checkout = ({ name, description, amount, cart }) => {
           .catch(function (error) {
             console.log("error in post insertOrder", error)
           })
+
+        // set redirect to order_complete
+        setChecked(1)
+
       }).catch(function (error) {
         console.log('checkout error', error)
       })
 
-
+  // return page based on whether checkout completed or not
+  // uses StripeCheckout to generate payment form
   return checked ?
     (<Navigate to="/order_complete" replace={true} />)
     : (
@@ -127,5 +131,4 @@ const Checkout = ({ name, description, amount, cart }) => {
       </div>
     )
 }
-
 export default Checkout;

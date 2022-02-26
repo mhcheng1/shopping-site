@@ -6,28 +6,25 @@ import Commerce from '@chec/commerce.js';
 import Cart from './Components/Cart/Cart'
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Order from './Components/Checkout/Order'
-import { increment } from './Actions'
 import axios from 'axios'
 import History from './Components/History/History';
 import { useSelector } from 'react-redux';
 
 /*  Notes
-    remember to add REACT_APP to access .env content
-    use element={} instead of component in routes 
+    - remember to add REACT_APP to access .env content
+    - use element={} instead of component in routes 
 */
 
+// env keys
 const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const App = () => {
     const [items, setItems] = useState([])
     const [cart, setCart] = useState({ line_items: [] })
+    const user_email = useSelector(state => state.user)
 
-    useEffect(() => {
-        getItems()
-        getCart()
-    }, [])
-
+    // **************  Commercejs Communications ********************** //
     const getItems = async () => {
         const response = await commerce.products.list()
         setItems(response.data.reverse())
@@ -50,7 +47,11 @@ const App = () => {
         //console.log("cart emptied")
     }
 
-    const user_email = useSelector(state => state.user)
+    // On start retrieve items info
+    useEffect(() => {
+        getItems()
+        getCart()
+    }, [])
 
     // update items in the database
     useEffect(() => {

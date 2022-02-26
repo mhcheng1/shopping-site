@@ -16,30 +16,28 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { userId } from '../../Actions/userId';
 import { signOut } from '../../Actions/signOut';
-import Button from '@mui/material/Button';
 import SubjectIcon from '@material-ui/icons/Subject';
 
 const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
+
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const Navbar = ({ cart, emptyCart }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState()
   const dispatch = useDispatch()
 
-  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
-
   const responseGoogle = (response) => {
     if (response.error) {
       console.log("login ERROR", response)
     }
     else {
-      // console.log(response);
+      // On login register user into database
+      // and set user email in redux state
       setLoggedIn(true)
       setUser(response)
-
-      // store current user email in redux state
       dispatch(userId(response.profileObj.email))
 
       axios.post(SERVER_URL + '/api/insertUser',
@@ -58,6 +56,7 @@ const Navbar = ({ cart, emptyCart }) => {
     }
   }
 
+  // set logout states and empty cart
   const logout = () => {
     console.log("User has logged out");
     setLoggedIn(false)
@@ -65,6 +64,7 @@ const Navbar = ({ cart, emptyCart }) => {
     emptyCart()
   }
 
+  // Only show certain features after login
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar1 position="fixed" color="primary">

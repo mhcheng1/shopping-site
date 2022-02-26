@@ -1,10 +1,7 @@
 import React from 'react';
-import { Typography, CardContent, CardMedia, Card, CardActionArea, CardActions, IconButton, Button } from '@mui/material';
+import { Typography, CardContent, CardMedia, Card, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import styled from 'styled-components'
-import { useEffect, useState} from 'react';
-
 
 // note: use dangerouslySetInnerHTML to parse out HTML tags in string
 // button onClick expects a function instead of value

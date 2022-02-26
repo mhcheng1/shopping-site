@@ -1,12 +1,7 @@
 import React from 'react';
-import { Typography, CardContent, CardMedia, Card, IconButton, Button } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Typography, CardContent, Card } from '@mui/material';
 import styled from 'styled-components'
 import {useState} from 'react';
-
-
-// note: use dangerouslySetInnerHTML to parse out HTML tags in string
-// button onClick expects a function instead of value
 
 const Description = styled.div`
     display: flex;
@@ -14,8 +9,6 @@ const Description = styled.div`
 `
 
 const HistoryItems = ({ item }) =>{
-    const [count, setCount] = useState(1)
-
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardContent>

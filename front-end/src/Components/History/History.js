@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import HistoryItems from './HistoryItems'
-import { Grid, Container, Typography, Box } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
@@ -9,6 +9,7 @@ const History = ({ user_email }) => {
     const [orders, setOrders] = useState([])
     const [orderItems, setOrderItems] = useState([])
 
+    // get user's previous order from database
     useEffect(() => {
         if (user_email) {
             axios.get(SERVER_URL + '/api/getOrder', { params: { user_email: user_email } }).then(res => {
@@ -18,6 +19,7 @@ const History = ({ user_email }) => {
         }
     }, [])
 
+    // use the order_id to get the items contained in the order from database
     useEffect(() => {
         if (orders.length > 0) {
             axios.get(SERVER_URL + '/api/getOrderItem', { params: { receipt: orders[orders.length - 1].receipt_url } }).then(res => {
@@ -28,8 +30,10 @@ const History = ({ user_email }) => {
     }, [orders])
 
     const handleClick = () => {
-        window.open(orders[orders.length - 1]?.receipt_url);
-      };
+        if (orders[orders.length - 1]) {
+            window.open(orders[orders.length - 1]?.receipt_url);
+        }
+    };
 
     return (
         <>

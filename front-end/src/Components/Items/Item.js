@@ -20,15 +20,16 @@ const Description = styled.div`
 const Item = ({ item, addToCart }) =>{
     const [count, setCount] = useState(1)
 
+    // operations for updating cart item count
     const addCount = () => {
         setCount(count + 1)
     }
-
     const minusCount = () => {
         if (count > 1) {
             setCount(count - 1)
         }
     }
+    
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
