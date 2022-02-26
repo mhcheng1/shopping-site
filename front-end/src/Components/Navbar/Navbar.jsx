@@ -16,7 +16,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { userId } from '../../Actions/userId';
 import { signOut } from '../../Actions/signOut';
-
+import Button from '@mui/material/Button';
+import SubjectIcon from '@material-ui/icons/Subject';
 
 const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
@@ -84,9 +85,9 @@ const Navbar = ({ cart }) => {
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID}
             render={renderProps => (
-              <><Typography variant="h6">Login</Typography>
+              <>
               <IconButton aria-label="login" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                <AccountCircleIcon color='primary'/>
+              <Typography variant="h6" sx={{mr: 1}}>Login</Typography><AccountCircleIcon color='primary'/>
               </IconButton>
               </>
             )}
@@ -98,24 +99,26 @@ const Navbar = ({ cart }) => {
             : 
             
           <>
-          <Typography variant='h6' sx={{ mr: 2}}>Welcome! {user?.profileObj.givenName}</Typography>
+          <Typography variant='h6' sx={{ mr: 3}}>Welcome! {user?.profileObj.givenName}</Typography>
           <GoogleLogout 
             clientId={GOOGLE_CLIENT_ID}
             render={renderProps => (
-              <><Typography variant="h6">Logout</Typography>
+              <>
               <IconButton aria-label="logout" onClick={renderProps.onClick} disabled={renderProps.disabled} >
-                <ExitToAppIcon color='primary'/>
+              <Typography variant="h6" sx={{mr: 1}}>Logout</Typography><ExitToAppIcon color='primary'/>
               </IconButton></>
             )}
             buttonText="Logout"
             onLogoutSuccess={logout}
           />
           <IconButton aria-label="history" sx={{ ml: '10px', mt: '6px' }}>
-            <Link to="/history"><ShoppingCartIcon /></Link>
+          <Typography variant='h6' sx={{ mb: 1, mr: 1}}>Order</Typography>
+            <Link to="/history"><SubjectIcon /></Link>
           </IconButton>
           </>
           }
           <IconButton aria-label="cart" sx={{ ml: '10px', mt: '6px' }}>
+          <Typography variant='h6' sx={{ mb: 1, mr: 1}}>Cart</Typography>
             <Badge badgeContent={cart.total_items} color="secondary">
               <Link to="/cart"><ShoppingCartIcon /></Link>
             </Badge>

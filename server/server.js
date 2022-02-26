@@ -66,11 +66,11 @@ app.post("/api/insertUser", (req, res) => {
 // insert order
 app.post("/api/insertOrder", (req, res) => {
   const email = req.body.email
-  const reciept_url = req.body.reciept_url
+  const receipt_url = req.body.receipt_url
   const total = req.body.total
   const date = req.body.date
-  const sqlInsert = "INSERT IGNORE INTO order_by(email, reciept_url, total, date) values(?,?,?,?);"
-  db.query(sqlInsert, [email, reciept_url, total, date], (err, result) => {
+  const sqlInsert = "INSERT IGNORE INTO order_by(email, receipt_url, total, date) values(?,?,?,?);"
+  db.query(sqlInsert, [email, receipt_url, total, date], (err, result) => {
     if (err) { console.log(err) }
   })
 })

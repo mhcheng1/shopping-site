@@ -41,7 +41,6 @@ const TotalDiv = styled.div`
     display: flex;
     justify-content: center;
 `
-const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const fromDollarToCent = amount => parseInt(amount * 100);
@@ -89,13 +88,15 @@ const Checkout = ({ name, description, amount, cart }) => {
         axios.post(SERVER_URL + '/api/insertOrder',
           {
             email: user_email,
-            reciept_url: res.receipt_url,
+            receipt_url: res.receipt_url,
             total: +(res.amount) / 100,
             date: date
           })
           .catch(function (error) {
             console.log("error in post insertOrder", error)
           })
+      }).catch(function (error) {
+        console.log('checkout error', error)
       })
 
 
