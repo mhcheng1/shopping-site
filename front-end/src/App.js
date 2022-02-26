@@ -47,7 +47,7 @@ const App = () => {
     const emptyCart = async() => {
         const response = await commerce.cart.empty()
         setCart(response.cart)
-        console.log("cart emptied")
+        //console.log("cart emptied")
     }
 
     const user_email = useSelector(state => state.user)
@@ -68,7 +68,7 @@ const App = () => {
 
     return(
         <Router> 
-            <Navbar cart={cart} />
+            <Navbar cart={cart} emptyCart={emptyCart} />
             <Routes> 
                 <Route exact path="/" element={<Items items={items} addToCart={addToCart} />} />
                 <Route exact path='/cart' element={<Cart cart={cart} updateCart={updateCart} />} />

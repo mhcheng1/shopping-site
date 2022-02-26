@@ -12,17 +12,12 @@ const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 const SERVER_CONFIGS = process.env.PORT || 8080
 const whitelist = [FRONTEND_URL]
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
-  credentials: true,
+const corsOptions ={
+  origin: FRONTEND_URL, 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
 }
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
 
 // ***********************  Stripe ******************************* //
@@ -44,9 +39,9 @@ app.post('/checkout', async (req, res) => {
 
 // ***********************  MySQL ******************************* //
 const db = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_SECRET,
   database: process.env.DATABASE
 })
 db.connect()

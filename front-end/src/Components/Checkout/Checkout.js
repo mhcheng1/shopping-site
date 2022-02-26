@@ -67,7 +67,7 @@ const Checkout = ({ name, description, amount, cart }) => {
         // get time when order complete
         tempDate = new Date();
         date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes() + ':' + tempDate.getSeconds();
-        console.log(response)
+        //console.log(response)
 
         const res = response.data.success
         dispatch(receiptUrl(res.receipt_url))

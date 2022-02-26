@@ -22,7 +22,7 @@ import SubjectIcon from '@material-ui/icons/Subject';
 const AppBar1 = styled.div`
   borderBottom: '1px solid';`;
 
-const Navbar = ({ cart }) => {
+const Navbar = ({ cart, emptyCart }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState()
   const dispatch = useDispatch()
@@ -62,6 +62,7 @@ const Navbar = ({ cart }) => {
     console.log("User has logged out");
     setLoggedIn(false)
     dispatch(signOut())
+    emptyCart()
   }
 
   return (
