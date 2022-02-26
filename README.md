@@ -20,7 +20,7 @@ Database:
 
 Diagram:
 
-![TechnicalArchitecture](Documentation/Architecture.png)
+![Technical Architecture](Documentation/Architecture.png)
 
 ## Relational Database
 The database is hosted using ClearDB MySQL add-ons on Heroku.
