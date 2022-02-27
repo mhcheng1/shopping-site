@@ -5,6 +5,9 @@ User can add selected products into a cart and pay using card. On successful pay
 
 Visit the deployed site [here](https://mhcheng-shop.netlify.app/)
 
+## Demo
+![Demo](Documentation/Shop.gif)
+
 ## Technical Architecture 
 
 Frontend: 
