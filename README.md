@@ -32,6 +32,10 @@ Diagram:
 
 ![ER-Diagram](Documentation/ER-Diagram.png)
 
+Third Party Integrations:
+- [Stripejs](https://stripe.com/) integrated in checkout component to verify payment
+- [Commercejs](https://commercejs.com/) is used for storing/retrieving item information such as item name, price, and image and maintaining the cart
+- `react-google-login` package allows for Google auth
 
 ### Run the App Locally
 
