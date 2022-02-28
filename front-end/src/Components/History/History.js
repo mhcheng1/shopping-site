@@ -14,7 +14,7 @@ const History = ({ user_email }) => {
         if (user_email) {
             axios.get(SERVER_URL + '/api/getOrder', { params: { user_email: user_email } }).then(res => {
                 setOrders(res.data)
-                console.log(orders)
+                //console.log(orders)
             })
         }
     }, [])
@@ -24,7 +24,7 @@ const History = ({ user_email }) => {
         if (orders.length > 0) {
             axios.get(SERVER_URL + '/api/getOrderItem', { params: { receipt: orders[orders.length - 1].receipt_url } }).then(res => {
                 setOrderItems(res.data)
-                console.log(orderItems)
+                //console.log(orderItems)
             })
         }
     }, [orders])

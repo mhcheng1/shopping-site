@@ -2,42 +2,31 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
-const app = express()
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-const mysql = require('mysql')
 
 // ***********************  Configs ******************************* //
 const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 const SERVER_CONFIGS = process.env.PORT || 8080
-const whitelist = [FRONTEND_URL]
-const corsOptions ={
-  origin: FRONTEND_URL, 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
+const app = express()
 
-app.use(function (req, res, next) {
+app.use(cors({
+  origin: FRONTEND_URL,
+  optionsSuccessStatus: 200,
+  methods: ["GET", "POST", "OPTIONS"]
+}))
 
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', FRONTEND_URL);
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+const mysql = require('mysql')
 
 // *********************  Stripe Payment ************************* //
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
@@ -57,13 +46,12 @@ app.post('/checkout', async (req, res) => {
 
 
 // ***********************  MySQL ******************************* //
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_SECRET,
   database: process.env.DATABASE
 })
-db.connect()
 
 // insert user info
 app.post("/api/insertUser", (req, res) => {
@@ -139,6 +127,10 @@ app.get("/api/getOrderItem", (req, res) => {
     })
   }
 
+})
+
+app.get('/', (req, res) => {
+  res.send("Server listening on: " + SERVER_CONFIGS)
 })
 
 app.listen(SERVER_CONFIGS, error => {
