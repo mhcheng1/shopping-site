@@ -90,7 +90,3 @@ Register User
 - Right now the user is required to login in with Google Auth
 - Allow user to register using email and password for this site
 - Need to increase security ex. preventing injections
-
-Improve Data Communications
-- The passing of data from front-end to database is repetitive and can be inefficient
-- Issues with CORS policy blocking communication
