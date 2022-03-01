@@ -25,6 +25,15 @@ Diagram:
 
 ![Technical Architecture](Documentation/Architecture.png)
 
+User's Flow
+- User accesses the web app in browser.
+- Browser pulls static resources from Commercejs.
+- Web site update product catalog to database.
+- User login with Google Auth and register user to MySQL, update states in Redux.
+- User add items to cart and checkout.
+- Web site posts order detail on success to database.
+- User view completed order and queries database.
+
 Third Party Integrations:
 - [Stripejs](https://stripe.com/) integrated in checkout component to verify payment
 - [Commercejs](https://commercejs.com/) is used for storing/retrieving item information such as item name, price, and image and maintaining the cart
