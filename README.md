@@ -29,7 +29,7 @@ User's Flow
 - User accesses the web app in browser.
 - Browser pulls static resources from Commercejs.
 - Web site update product catalog to database.
-- User login with Google Auth and register user to MySQL, update states in Redux.
+- User login with Google Auth and register user to database, update states in Redux.
 - User add items to cart and checkout.
 - Web site posts order detail on success to database.
 - User view completed order and queries database.
