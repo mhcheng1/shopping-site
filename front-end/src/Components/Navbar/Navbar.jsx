@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -15,7 +15,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { userId } from '../../Actions/userId';
-import { signOut } from '../../Actions/signOut';
 import SubjectIcon from '@material-ui/icons/Subject';
 
 const AppBar1 = styled.div`
@@ -28,6 +27,23 @@ const Navbar = ({ cart, emptyCart }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState()
   const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.user)
+  
+  useEffect(() => {
+      if (currentUser === 'test@gmail.com') {
+          setLoggedIn(true)
+          setUser({
+              givenName: 'Tester'
+          })
+          axios.post(SERVER_URL + '/api/insertUser',
+          {
+            email: 'test@gmail.com',
+            first_name: 'Tester',
+            last_name: 'Joe',
+            name: 'Tester Joe'
+          })
+      }
+  }, [currentUser])
 
   const responseGoogle = (response) => {
     if (response.error) {
@@ -37,7 +53,7 @@ const Navbar = ({ cart, emptyCart }) => {
       // On login register user into database
       // and set user email in redux state
       setLoggedIn(true)
-      setUser(response)
+      setUser(response.profileObj)
       dispatch(userId(response.profileObj.email))
 
       axios.post(SERVER_URL + '/api/insertUser',
@@ -60,8 +76,9 @@ const Navbar = ({ cart, emptyCart }) => {
   const logout = () => {
     console.log("User has logged out");
     setLoggedIn(false)
-    dispatch(signOut())
     emptyCart()
+    setUser()
+    dispatch(userId(''))
   }
 
   // Only show certain features after login
@@ -100,7 +117,7 @@ const Navbar = ({ cart, emptyCart }) => {
             : 
             
           <>
-          <Typography variant='h6' sx={{ mr: 3}}>Welcome! {user?.profileObj.givenName}</Typography>
+          <Typography variant='h6' sx={{ mr: 3}}>Welcome! {user?.givenName}</Typography>
           <GoogleLogout 
             clientId={GOOGLE_CLIENT_ID}
             render={renderProps => (

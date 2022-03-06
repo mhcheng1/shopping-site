@@ -3,7 +3,9 @@ import { Grid, Typography } from '@material-ui/core';
 import CartItem from './CartItem';
 import styled from 'styled-components'
 import Checkout from '../Checkout/Checkout';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { userId } from '../../Actions/userId';
+
 
 const TitleDiv = styled.div`
     display: flex;
@@ -21,6 +23,12 @@ const Title = styled.div`
 `
 const Cart = ({ cart, updateCart }) => {
     const isLogged = useSelector(state => state.isLogged)
+    const dispatch = useDispatch()
+    const currentUser = useSelector(state => state.user)
+    const testUser = () => {
+        dispatch(userId('test@gmail.com'))
+    }
+
 
     if (isLogged) {
         return (
@@ -48,9 +56,14 @@ const Cart = ({ cart, updateCart }) => {
     }
     else {
         return (
+            <>
             <Typography variant='h6' style={{ display:'flex', justifyContent: 'center', paddingTop: '100px'}}>
                 Please sign in first
             </Typography>
+                <div style={{ display:'flex', justifyContent: 'center', paddingTop: '10px'}}>
+                    <button onClick={testUser}>Log in as test user</button>
+                </div>
+            </>
         )
     }
 };
