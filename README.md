@@ -17,7 +17,7 @@ Frontend:
 Backend:
  - Node.js using Express
  - Hosted on Heroku
- - Mocking with Jest
+ - Unit testing with Jest
 
 Database:
  - MySQL
@@ -81,9 +81,10 @@ Update the keys
 - REACT_APP_COMMERCEJS_KEY= Register your Commercejs account [here](https://commercejs.com/)
 - REACT_APP_FRONTEND_URL= Your prefered local frontend URL (Default http://localhost:3000)
 - REACT_APP_SERVER_URL=Your prefered local server URL (Default http://localhost:8080)
+- MySQL Database information
 
-Create your MySQL database
-- Store host, user, password, database name into dotenv
+Jest Testing
+`npx jest`
 
 ## Future Implementations
 
