@@ -17,6 +17,7 @@ Frontend:
 Backend:
  - Node.js using Express
  - Hosted on Heroku
+ - Mocking with Jest
 
 Database:
  - MySQL
