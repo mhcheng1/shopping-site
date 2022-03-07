@@ -2,6 +2,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
+const e = require('cors');
 
 // ***********************  Configs ******************************* //
 const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
@@ -63,6 +64,7 @@ module.exports.func = function () {
         const sqlInsert = "INSERT IGNORE INTO users(email, first_name, last_name) values(?,?,?);"
         db.query(sqlInsert, [email, first_name, last_name], (err, result) => {
             if (err) { console.log(err) }
+            else{ res.sendStatus(200) }
         })
     })
 
@@ -75,6 +77,7 @@ module.exports.func = function () {
         const sqlInsert = "INSERT IGNORE INTO order_by(email, receipt_url, total, date) values(?,?,?,?);"
         db.query(sqlInsert, [email, receipt_url, total, date], (err, result) => {
             if (err) { console.log(err) }
+            else{ res.sendStatus(200) }
         })
     })
 
@@ -137,8 +140,11 @@ module.exports.func = function () {
 
     // insert user info test
     app.post("/api/insertTest", (req, res) => {
+        const email = req.body.email
+        const first_name = req.body.first_name
         res.send({
-            email: "test@gmail.com"
+            email: email,
+            first_name: first_name
         })
     })
     
