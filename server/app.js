@@ -1,15 +1,18 @@
 const cors = require('cors');
-const bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
-const e = require('cors');
+const mysql = require('mysql')
+const Commerce = require('@chec/commerce.js')
 
 // ***********************  Configs ******************************* //
 const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL
 const SERVER_CONFIGS = process.env.PORT || 8080
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
+// Start of the app content
 module.exports.func = function () {
+    // ***********************  CORS Policy ******************************* //
     const app = express()
     app.use(cors({
         origin: FRONTEND_URL,
@@ -28,11 +31,37 @@ module.exports.func = function () {
     });
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    const mysql = require('mysql')
+    
+    // ***********************  Redis *********************************** //
+    const redis = require('ioredis');
+    const redisClient = redis.createClient(REDIS_PORT);
+    redisClient.on('error', function(err) {
+        console.log('*Redis Client Error: ' + err.message);
+    });
+    redisClient.on('connect', function(){
+       console.log('Connected to redis instance');
+    });
+
+    // caching for products list retrieved from commerce.js
+    // send a stringified object back
+    const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
+    app.get('/products', async (req, res) => {
+        const value = await redisClient.get('products');
+        if (value === null) {
+            console.log("no products in cache");
+            const response = await commerce.products.list();
+            await redisClient.set('products', JSON.stringify(response.data));
+            redisClient.expire('products', 600); // cache expires in 600 secs
+            res.send(JSON.stringify(response.data));
+        }
+        else {
+            res.send(value);
+        }
+    })
 
     // *********************  Stripe Payment ************************* //
     const stripe = require('stripe')(STRIPE_SECRET_KEY);
-
+    // create stripe charges
     const postStripeCharge = res => (stripeErr, stripeRes) => {
         if (stripeErr) {
             res.status(500).send({ error: stripeErr });
@@ -40,14 +69,12 @@ module.exports.func = function () {
             res.status(200).send({ success: stripeRes });
         }
     }
-
     app.post('/checkout', async (req, res) => {
         await stripe.charges.create(req.body, postStripeCharge(res))
-        //console.log(req.body);
     });
 
 
-    // ***********************  MySQL ******************************* //
+    // ***********************  MySQL Routes ******************************* //
     const db = mysql.createPool({
         host: process.env.DATABASE_HOST,
         user: process.env.DATABASE_USER,
@@ -130,23 +157,12 @@ module.exports.func = function () {
                 }
             })
         }
-
     })
 
-    // ***********************  Testing ******************************* //
+    // *********************** Put Testing Routes Here ******************************* //
     app.get('/', (req, res) => {
         res.send("Server listening on: " + SERVER_CONFIGS)
     })
-
-    // insert user info test
-    app.post("/api/insertTest", (req, res) => {
-        const email = req.body.email
-        const first_name = req.body.first_name
-        res.send({
-            email: email,
-            first_name: first_name
-        })
-    })
     
-    return app
+    return app;
 }

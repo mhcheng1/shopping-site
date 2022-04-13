@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_KEY, true);
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
+// Start of the app
 const App = () => {
     const [items, setItems] = useState([])
     const [cart, setCart] = useState({ line_items: [] })
@@ -26,7 +27,7 @@ const App = () => {
 
     // **************  Commercejs Communications ********************** //
     const getItems = async () => {
-        const response = await commerce.products.list()
+        const response = await axios.get(SERVER_URL + '/products')
         setItems(response.data.reverse())
     }
     const getCart = async() => {
@@ -44,10 +45,9 @@ const App = () => {
     const emptyCart = async() => {
         const response = await commerce.cart.empty()
         setCart(response.cart)
-        //console.log("cart emptied")
     }
 
-    // On start retrieve items info
+    // On start retrieve items and cart info
     useEffect(() => {
         getItems()
         getCart()
