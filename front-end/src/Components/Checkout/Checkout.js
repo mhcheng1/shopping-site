@@ -57,7 +57,7 @@ const Checkout = ({ name, description, amount, cart }) => {
   const onToken = (amount, description) => token =>
     // post to stripe to verify order
     // If success perform multiple POST of order info to server
-    axios.post(SERVER_URL + '/checkout',
+    axios.post(SERVER_URL + '/api/checkout',
       {
         description,
         source: token.id,
@@ -77,14 +77,14 @@ const Checkout = ({ name, description, amount, cart }) => {
           return [res.receipt_url, prod.product_id, prod.quantity]
         })
 
-        axios.post(SERVER_URL + '/api/insertOrderItem', checkoutCart)
+        axios.post(SERVER_URL + '/api/db/insertOrderItem', checkoutCart)
           .catch(function (error) {
             console.log("error in post insertOrder", error)
           })
 
 
         // post success order detail to database
-        axios.post(SERVER_URL + '/api/insertOrder',
+        axios.post(SERVER_URL + '/api/db/insertOrder',
           {
             email: user_email,
             receipt_url: res.receipt_url,

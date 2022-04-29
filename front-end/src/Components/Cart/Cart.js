@@ -21,6 +21,7 @@ const Title = styled.div`
     margin-top: 30px;
     margin-bottom: 30px;
 `
+// return the shopping cart based on current login session
 const Cart = ({ cart, updateCart }) => {
     const isLogged = useSelector(state => state.isLogged)
     const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const Cart = ({ cart, updateCart }) => {
         dispatch(userId('test@gmail.com'))
     }
 
-
+    // prompt user to login if haven't done so, or show their cart items if logged in
     if (isLogged) {
         return (
             <div>

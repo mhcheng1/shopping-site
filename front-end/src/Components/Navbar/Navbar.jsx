@@ -35,7 +35,7 @@ const Navbar = ({ cart, emptyCart }) => {
           setUser({
               givenName: 'Tester'
           })
-          axios.post(SERVER_URL + '/api/insertUser',
+          axios.post(SERVER_URL + '/api/db/insertUser',
           {
             email: 'test@gmail.com',
             first_name: 'Tester',
@@ -56,7 +56,7 @@ const Navbar = ({ cart, emptyCart }) => {
       setUser(response.profileObj)
       dispatch(userId(response.profileObj.email))
 
-      axios.post(SERVER_URL + '/api/insertUser',
+      axios.post(SERVER_URL + '/api/db/insertUser',
       {
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
@@ -64,7 +64,7 @@ const Navbar = ({ cart, emptyCart }) => {
         name: response.profileObj.name
       })
       .then(function (response) {
-        console.log(response)
+        // console.log(response)
       })
       .catch(function (error){
         console.log("login post error: ", error)

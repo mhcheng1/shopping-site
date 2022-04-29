@@ -83,23 +83,14 @@ Run
 
 Jest Testing
 
-`npx jest`
+`npm test`
 
-For the env variables to work create dotenv files in both front-end and server directory.
-Update the keys
-
-- REACT_APP_STRIPE_KEY= Register your Stripe account [here](https://stripe.com/) 
-- REACT_APP_STRIPE_SECRET= Register your Stripe account [here](https://stripe.com/)
-- REACT_APP_GOOGLE_CLIENT_ID= Your Google Client ID
-- REACT_APP_COMMERCEJS_KEY= Register your Commercejs account [here](https://commercejs.com/)
-- REACT_APP_FRONTEND_URL= Your prefered local frontend URL (Default http://localhost:3000)
-- REACT_APP_SERVER_URL=Your prefered local server URL (Default http://localhost:8080)
-- MySQL Database information
+For the env variables to work create dotenv files in both front-end and server directory following exampleENV.txt
 
 ## Future Implementations
 
 Register User
 
-- Right now the user is required to login in with Google Auth
+- Increase login options besides google OAuth
 - Allow user to register using email and password for this site
 - May need to increase security ex. preventing SQL injections

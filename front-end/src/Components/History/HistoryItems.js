@@ -7,7 +7,7 @@ const Description = styled.div`
     display: flex;
     justify-content: space-between;
 `
-
+// Display individual products from user's previous history
 const HistoryItems = ({ item }) =>{
     return (
         <Card sx={{ maxWidth: 345 }}>

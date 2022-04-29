@@ -27,7 +27,7 @@ const App = () => {
 
     // **************  Commercejs Communications ********************** //
     const getItems = async () => {
-        const response = await axios.get(SERVER_URL + '/products')
+        const response = await axios.get(SERVER_URL + '/api/products')
         setItems(response.data.reverse())
     }
     const getCart = async() => {
@@ -59,7 +59,7 @@ const App = () => {
             const newItems = items.map(i => {
                 return [i.id, i.name, i.price.raw]
             })
-            axios.post(SERVER_URL + '/api/insertItem', {
+            axios.post(SERVER_URL + '/api/db/insertItem', {
                 items: newItems
             }).catch(function (error) {
                 console.log(error)
