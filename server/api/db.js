@@ -17,7 +17,7 @@ connection.query("SELECT 1;", (err) => {
 });
 
 router.get("/", (req, res) => {
-    res.send("gottem")
+    res.send("received get")
 })
 
 // insert user info
