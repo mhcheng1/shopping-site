@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 
-
+// return the receipt of the order and a button that links to it
 const Order = ({ emptyCart }) => {
     // On load empty cart
     useEffect(() => {

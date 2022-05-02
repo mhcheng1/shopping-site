@@ -5,6 +5,7 @@ import { Grid, Typography, Box } from '@material-ui/core';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
+// get user's previous order and display items through history component
 const History = ({ user_email }) => {
     const [orders, setOrders] = useState([])
     const [orderItems, setOrderItems] = useState([])
@@ -12,9 +13,8 @@ const History = ({ user_email }) => {
     // get user's previous order from database
     useEffect(() => {
         if (user_email) {
-            axios.get(SERVER_URL + '/api/getOrder', { params: { user_email: user_email } }).then(res => {
+            axios.get(SERVER_URL + '/api/db/getOrder', { params: { user_email: user_email } }).then(res => {
                 setOrders(res.data)
-                //console.log(orders)
             })
         }
     }, [])
@@ -22,13 +22,13 @@ const History = ({ user_email }) => {
     // use the order_id to get the items contained in the order from database
     useEffect(() => {
         if (orders.length > 0) {
-            axios.get(SERVER_URL + '/api/getOrderItem', { params: { receipt: orders[orders.length - 1].receipt_url } }).then(res => {
+            axios.get(SERVER_URL + '/api/db/getOrderItem', { params: { receipt: orders[orders.length - 1].receipt_url } }).then(res => {
                 setOrderItems(res.data)
-                //console.log(orderItems)
             })
         }
     }, [orders])
 
+    // open a new window for receipt on button click
     const handleClick = () => {
         if (orders[orders.length - 1]) {
             window.open(orders[orders.length - 1]?.receipt_url);
